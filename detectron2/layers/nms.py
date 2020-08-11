@@ -13,13 +13,14 @@ def batched_nms(boxes, scores, idxs, iou_threshold):
     assert boxes.shape[-1] == 4
     # TODO may need better strategy.
     # Investigate after having a fully-cuda NMS op.
-    if len(boxes) < 40000:
-        return box_ops.batched_nms(boxes, scores, idxs, iou_threshold)
+    # if len(boxes) < 40000:
+    #     return box_ops.batched_nms(boxes, scores, idxs, iou_threshold)
 
     result_mask = scores.new_zeros(scores.size(), dtype=torch.bool)
-    for id in torch.unique(idxs).cpu().tolist():
+    # for id in torch.unique(idxs).cpu().tolist():
+    for id, iou_thres in zip(torch.unique(idxs).cpu().tolist(), iou_threshold.cpu().to_list()):
         mask = (idxs == id).nonzero().view(-1)
-        keep = nms(boxes[mask], scores[mask], iou_threshold)
+        keep = nms(boxes[mask], scores[mask], iou_thres)
         result_mask[mask[keep]] = True
     keep = result_mask.nonzero().view(-1)
     keep = keep[scores[keep].argsort(descending=True)]

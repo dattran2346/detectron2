@@ -75,6 +75,7 @@ class RetinaNet(nn.Module):
         self.score_threshold          = cfg.MODEL.RETINANET.SCORE_THRESH_TEST
         self.topk_candidates          = cfg.MODEL.RETINANET.TOPK_CANDIDATES_TEST
         self.nms_threshold            = cfg.MODEL.RETINANET.NMS_THRESH_TEST
+        self.nms_threshold = torch.tensor(self.nms_threshold, device=cfg.MODEL.DEVICE)
         self.max_detections_per_image = cfg.TEST.DETECTIONS_PER_IMAGE
         # Vis parameters
         self.vis_period               = cfg.VIS_PERIOD

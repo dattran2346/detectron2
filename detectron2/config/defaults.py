@@ -430,7 +430,7 @@ _C.MODEL.RETINANET.PRIOR_PROB = 0.01
 # considered for inference (to improve speed)
 _C.MODEL.RETINANET.SCORE_THRESH_TEST = 0.05
 _C.MODEL.RETINANET.TOPK_CANDIDATES_TEST = 1000
-_C.MODEL.RETINANET.NMS_THRESH_TEST = 0.5
+_C.MODEL.RETINANET.NMS_THRESH_TEST = [0.5,]
 
 # Weights on (dx, dy, dw, dh) for normalizing Retinanet anchor regression targets
 _C.MODEL.RETINANET.BBOX_REG_WEIGHTS = (1.0, 1.0, 1.0, 1.0)
