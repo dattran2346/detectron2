@@ -18,7 +18,7 @@ def batched_nms(boxes, scores, idxs, iou_threshold):
 
     result_mask = scores.new_zeros(scores.size(), dtype=torch.bool)
     # for id in torch.unique(idxs).cpu().tolist():
-    for id, iou_thres in zip(torch.unique(idxs).cpu().tolist(), iou_threshold.cpu().to_list()):
+    for id, iou_thres in zip(torch.unique(idxs).cpu().tolist(), iou_threshold.cpu().tolist()):
         mask = (idxs == id).nonzero().view(-1)
         keep = nms(boxes[mask], scores[mask], iou_thres)
         result_mask[mask[keep]] = True
